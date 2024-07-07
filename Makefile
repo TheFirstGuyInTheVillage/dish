@@ -18,4 +18,4 @@ init:
 	docker compose exec -u nginx app bash docker run-init.sh
 
 dish:
-	docker compose exec app bin/console app:dish:build dcciii
+	docker compose exec app bin/console app:dish:build dcciii -vvv

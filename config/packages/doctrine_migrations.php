@@ -10,7 +10,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         [
             'em'               => 'default',
             'migrations_paths' => [
-                'App\Infrastructure\Persistence\Migrations',
+                'App\Infrastructure\Persistence\Migrations' =>
+                    '%kernel.project_dir%/src/Infrastructure/Persistence/Migrations',
             ],
             'all_or_nothing'   => true,
         ],

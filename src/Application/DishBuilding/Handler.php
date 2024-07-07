@@ -4,10 +4,17 @@ declare(strict_types=1);
 
 namespace App\Application\DishBuilding;
 
-final class Handler implements HandlerInterface
+use App\Domain\Service\DishBuilderServiceInterface;
+
+final readonly class Handler implements HandlerInterface
 {
-    public function handle(string $typesAsString)
+    public function __construct(
+        private DishBuilderServiceInterface $dishBuilderService,
+    ) {
+
+    }
+    public function handle(string $typesOrderAsString)
     {
-        dd($typesAsString);
+        return $this->dishBuilderService->buildVariantsByTypes(str_split($typesOrderAsString));
     }
 }

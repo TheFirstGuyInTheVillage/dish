@@ -6,10 +6,11 @@ use App\Domain\Entity\Ingredient\IngredientInterface;
 use App\Domain\Entity\IngredientType\IngredientTypeInterface;
 use App\Infrastructure\Persistence\Repository\IngredientRepository;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\Orm\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
 #[ORM\Table(name: 'ingredient')]
+#[ORM\Index(name: 'FK_ingredient_type_id', columns: ['type_id'])]
 #[ORM\HasLifecycleCallbacks]
 class Ingredient implements IngredientInterface
 {

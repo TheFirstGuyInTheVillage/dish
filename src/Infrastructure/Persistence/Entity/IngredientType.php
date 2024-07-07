@@ -5,7 +5,7 @@ namespace App\Infrastructure\Persistence\Entity;
 use App\Domain\Entity\IngredientType\IngredientTypeInterface;
 use App\Infrastructure\Persistence\Repository\IngredientTypeRepository;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\Orm\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: IngredientTypeRepository::class)]
 #[ORM\Table(name: 'ingredient_type')]

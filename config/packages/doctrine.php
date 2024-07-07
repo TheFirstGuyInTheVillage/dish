@@ -13,6 +13,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'connections'        => [
                     'default' => [
                         'driver'                => 'pdo_mysql',
+                        'dbname'                => '%env(resolve:MYSQL_DB)%',
                         'host'                  => '%env(resolve:MYSQL_HOST)%',
                         'port'                  => '%env(resolve:MYSQL_PORT)%',
                         'user'                  => '%env(resolve:MYSQL_USER)%',
@@ -21,7 +22,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                         'charset'               => 'utf8mb4',
                         'default_table_options' => [
                             'charset' => 'utf8mb4',
-                            'collate' => 'utf8mb4_unicode_ci',
+                            'collate' => 'utf8mb4_0900_ai_ci',
                         ],
                     ],
                 ],
@@ -33,13 +34,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     'default' => [
                         'connection' => 'default',
                         'naming_strategy' => 'doctrine.orm.naming_strategy.underscore',
+                        'auto_mapping'                => true,
                         'mappings' => [
                             'App' => [
                                 'is_bundle' => false,
                                 'type'      => 'attribute',
                                 'dir'       => '%kernel.project_dir%/src/Infrastructure/Persistence/Entity',
                                 'prefix'    => 'App\Infrastructure\Persistence\Entity',
-                                'alias'     => 'AppMysql',
+                                'alias'     => 'App',
                             ],
                         ],
                     ],

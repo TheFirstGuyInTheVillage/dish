@@ -16,7 +16,7 @@ use Throwable;
 class DishBuilderCommand extends Command
 {
     public const COMMAND_NAME               = 'app:dish:build';
-    private const INGREDIENT_TYPES_ARGUMENT = 'types';
+    private const INGREDIENT_TYPES_ORDER_ARGUMENT = 'typesOrder';
 
     protected static $defaultName = self::COMMAND_NAME;
 
@@ -29,16 +29,16 @@ class DishBuilderCommand extends Command
     protected function configure(): void
     {
         $this->addArgument(
-            name: self::INGREDIENT_TYPES_ARGUMENT,
+            name: self::INGREDIENT_TYPES_ORDER_ARGUMENT,
             mode: InputArgument::REQUIRED,
-            description: 'Коды ингредиентов',
+            description: 'Порядок кодов ингредиентов',
         );
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
-            $result = $this->handler->handle($input->getArgument(self::INGREDIENT_TYPES_ARGUMENT));
+            $result = $this->handler->handle($input->getArgument(self::INGREDIENT_TYPES_ORDER_ARGUMENT));
             $output->writeln($result);
             return Command::SUCCESS;
         } catch (Throwable $exception) {

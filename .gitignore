@@ -9,6 +9,9 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-###< IDE ###
+###> IDE ###
 .idea/*
 ###< IDE ###
+###> Docker ###
+/docker-compose.override.yml
+###< Docker ###

@@ -26,16 +26,12 @@ services:
       - mysql
     networks:
       - dish_net
-    ports:
-      - "80:80"
   mysql:
     image: mysql:8.4.1
     container_name: dish-mysql
     volumes:
       - ./docker/mysql:/docker-entrypoint-initdb.d
       - mysql-data:/var/lib/mysql
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
       MYSQL_DATABASE: test_task
@@ -46,9 +42,11 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
+
 volumes:
   mysql-data:
     name: mysql-data
+
 networks:
   dish_net:
     name: dish_net

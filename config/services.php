@@ -10,8 +10,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->defaults()
         ->autowire()
-        ->autoconfigure()
-        ->bind('$mysqlEntityManager', service('doctrine.orm.default_entity_manager'));
+        ->autoconfigure();
 
-    $services->instanceof(Command::class)->tag('app.console.command');
+    $services->load('App\\', __DIR__ . '/../src/*')
+        ->exclude(
+            [
+                __DIR__ . '/../src/Kernel.php',
+                __DIR__ . '/../src/Infrastructure/Persistence/{Entity,Migrations}',
+            ],
+        );
 };

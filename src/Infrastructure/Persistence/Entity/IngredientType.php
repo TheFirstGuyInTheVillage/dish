@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Persistence\Entity;
 
-use App\Domain\IngredientType\IngredientTypeInterface;
+use App\Domain\Entity\IngredientType\IngredientTypeInterface;
 use App\Infrastructure\Persistence\Repository\IngredientTypeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Orm\Mapping as ORM;

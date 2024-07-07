@@ -9,7 +9,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'framework',
         [
             'secret'          => '%env(APP_SECRET)%',
-            'csrf_protection' => true,
             'session'         => [
                 'storage_factory_id' => 'session.storage.factory.native',
                 'enabled'            => true,

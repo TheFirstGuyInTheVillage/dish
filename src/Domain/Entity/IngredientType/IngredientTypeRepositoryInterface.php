@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\IngredientType;
+namespace App\Domain\Entity\IngredientType;
 
 interface IngredientTypeRepositoryInterface
 {

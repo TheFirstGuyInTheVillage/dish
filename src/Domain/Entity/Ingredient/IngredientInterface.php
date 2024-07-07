@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Ingredient;
+namespace App\Domain\Entity\Ingredient;
 
-use App\Domain\IngredientType\IngredientTypeInterface;
+use App\Domain\Entity\IngredientType\IngredientTypeInterface;
 
 interface IngredientInterface
 {

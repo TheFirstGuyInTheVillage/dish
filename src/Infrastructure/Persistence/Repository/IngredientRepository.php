@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Persistence\Repository;
 
-use App\Domain\Ingredient\IngredientRepositoryInterface;
+use App\Domain\Entity\Ingredient\IngredientRepositoryInterface;
 use App\Infrastructure\Persistence\Entity\Ingredient;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;

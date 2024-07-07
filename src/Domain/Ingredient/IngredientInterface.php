@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace App\Domain\Ingredient;
 
+use App\Domain\IngredientType\IngredientTypeInterface;
+
 interface IngredientInterface
 {
     public function getId(): int;
 
-    public function getTitle(): ?string;
+    public function getType(): IngredientTypeInterface;
 
-    public function setTitle(?string $title): self;
+    public function setType(IngredientTypeInterface $type): self;
 
-    public function getCode(): ?string;
+    public function getTitle(): string;
 
-    public function setCode(?string $code): self;
+    public function setTitle(string $title): self;
+
+    public function getPrice(): float;
+
+    public function setPrice(float $price): self;
 }

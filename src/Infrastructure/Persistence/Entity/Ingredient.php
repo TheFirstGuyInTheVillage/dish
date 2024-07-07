@@ -2,26 +2,31 @@
 
 namespace App\Infrastructure\Persistence\Entity;
 
+use App\Domain\Ingredient\IngredientInterface;
 use App\Domain\IngredientType\IngredientTypeInterface;
-use App\Infrastructure\Persistence\Repository\IngredientTypeRepository;
+use App\Infrastructure\Persistence\Repository\IngredientRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Orm\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: IngredientTypeRepository::class)]
-#[ORM\Table(name: 'ingredient_type')]
+#[ORM\Entity(repositoryClass: IngredientRepository::class)]
+#[ORM\Table(name: 'ingredient')]
 #[ORM\HasLifecycleCallbacks]
-class Ingredient implements IngredientTypeInterface
+class Ingredient implements IngredientInterface
 {
     #[ORM\Id]
     #[ORM\Column(name: 'id', type: Types::INTEGER, unique: true, nullable: false)]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     private int $id;
 
-    #[ORM\Column(name: 'title', type: Types::STRING, nullable: true)]
-    private ?string $title = null;
+    #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id')]
+    #[ORM\ManyToOne(targetEntity: IngredientType::class)]
+    private IngredientTypeInterface $type;
 
-    #[ORM\Column(name: 'code', type: Types::STRING, nullable: true)]
-    private ?string $code = null;
+    #[ORM\Column(name: 'title', type: Types::STRING, nullable: false)]
+    private string $title;
+
+    #[ORM\Column(name: 'price', type: Types::FLOAT, nullable: false)]
+    private float $price;
 
     public function getId(): int
     {
@@ -34,25 +39,36 @@ class Ingredient implements IngredientTypeInterface
         return $this;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle(?string $title): self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
         return $this;
     }
 
-    public function getCode(): ?string
+    public function getType(): IngredientTypeInterface
     {
-        return $this->code;
+        return $this->type;
     }
 
-    public function setCode(?string $code): self
+    public function setType(IngredientTypeInterface $type): self
     {
-        $this->code = $code;
+        $this->type = $type;
+        return $this;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
         return $this;
     }
 }

@@ -1,0 +1,57 @@
+services:
+  app:
+    image: dish-builder/php:dev
+    container_name: dish-app
+    build:
+      dockerfile: ./docker/app/Dockerfile
+      context: .
+    env_file: .env
+    volumes:
+      - .:/app:delegated
+    depends_on:
+      - mysql
+    networks:
+      - dish_net
+  nginx:
+    image: dish-builder/nginx:dev
+    container_name: dish-nginx
+    build:
+      dockerfile: ./docker/nginx/Dockerfile
+      context: .
+    volumes:
+      - .:/app
+      - ./docker/nginx:/etc/nginx
+    depends_on:
+      - app
+      - mysql
+    networks:
+      - dish_net
+    ports:
+      - "80:80"
+  mysql:
+    image: mysql:8.4.1
+    container_name: dish-mysql
+    volumes:
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: test_task
+    networks:
+      - dish_net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppass"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  mysql-data:
+    name: mysql-data
+networks:
+  dish_net:
+    name: dish_net
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"

@@ -13,9 +13,8 @@ up:
 stop:
 	docker compose stop
 
-init:
-	make up
-	docker compose exec -u nginx app bash docker run-init.sh
+enter:
+	docker compose exec app bash
 
 dish:
 	docker compose exec app bin/console app:dish:build dcciii -vvv

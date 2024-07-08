@@ -66,5 +66,8 @@
             "allow-contrib": false,
             "require": "5.4.*"
         }
+    },
+    "require-dev": {
+        "codeception/module-symfony": "^3.4"
     }
 }

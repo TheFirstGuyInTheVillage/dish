@@ -1,0 +1,24 @@
+namespace: App\Tests
+support_namespace: Support
+paths:
+    tests: tests
+    output: tests/_output
+    data: tests/Support/Data
+    support: tests/Support
+actor_suffix: Tester
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed
+params:
+    - .env
+coverage:
+    enabled: false
+    show_only_summary: true
+    include:
+        - src/*
+modules:
+    config:
+        Symfony:
+            app_path: 'src'
+            environment: 'test'
+            kernel_class: 'App\Kernel'

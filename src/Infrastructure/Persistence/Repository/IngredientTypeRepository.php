@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * @extends EntityRepository<IngredientType>
  */
-class IngredientTypeRepository extends EntityRepository implements IngredientTypeRepositoryInterface
+final class IngredientTypeRepository extends EntityRepository implements IngredientTypeRepositoryInterface
 {
     public function __construct(EntityManagerInterface $entityManager)
     {

@@ -5,7 +5,7 @@ namespace App\Domain\Service;
 use App\Domain\Entity\Ingredient\IngredientInterface;
 use App\Domain\Entity\Ingredient\IngredientRepositoryInterface;
 
-readonly class DishBuilderService implements DishBuilderServiceInterface
+final readonly class DishBuilderService implements DishBuilderServiceInterface
 {
     public function __construct(
         private IngredientRepositoryInterface $ingredientRepository,
@@ -46,14 +46,10 @@ readonly class DishBuilderService implements DishBuilderServiceInterface
             }
         }
 
-        return $this->buildCombinations($ingredientsToOrderList);
+        return $this->buildChains($ingredientsToOrderList);
     }
 
-    /**
-     * @param array<int, array> $ingredientsToOrderList
-     * @return array
-     */
-    private function buildCombinations(array $ingredientsToOrderList): array
+    private function buildChains(array $ingredientsToOrderList): array
     {
         $chains = [];
         foreach ($ingredientsToOrderList as $orderIndex => $ingredientCandidates) {

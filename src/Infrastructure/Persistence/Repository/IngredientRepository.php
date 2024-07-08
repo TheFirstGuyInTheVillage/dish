@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * @extends EntityRepository<Ingredient>
  */
-class IngredientRepository extends EntityRepository implements IngredientRepositoryInterface
+final class IngredientRepository extends EntityRepository implements IngredientRepositoryInterface
 {
     public function __construct(EntityManagerInterface $entityManager)
     {

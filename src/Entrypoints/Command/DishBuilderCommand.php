@@ -39,7 +39,7 @@ class DishBuilderCommand extends Command
     {
         try {
             $result = $this->handler->handle($input->getArgument(self::INGREDIENT_TYPES_ORDER_ARGUMENT));
-            $output->writeln($result);
+            $output->writeln(json_encode($result, JSON_THROW_ON_ERROR));
             return Command::SUCCESS;
         } catch (Throwable $exception) {
             $output->writeln('Unable to build dish. Error: ' . $exception->getMessage());

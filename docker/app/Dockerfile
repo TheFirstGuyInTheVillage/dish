@@ -5,7 +5,7 @@ ARG NGINX_GROUP_ID=1000
 FROM ubuntu:stable
 
 RUN apt-get update
-RUN apt-get install composer bash
+RUN apt-get install composer bash php-curl
 
 FROM php:${PHP_VERSION}-fpm
 

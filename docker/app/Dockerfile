@@ -1,27 +1,30 @@
-ARG PHP_VERSION=8.2
+FROM composer:2.7 as vendor
 
-FROM php:${PHP_VERSION}-fpm
-RUN apt-get update
-RUN apt-get -y install bash git zip
+WORKDIR /tmp/
+
+COPY composer.json composer.json
+COPY composer.lock composer.lock
+
+RUN composer install --prefer-dist --no-scripts
+
+FROM php:8.2-fpm
 
 ARG NGINX_USER_ID=1000
 ARG NGINX_GROUP_ID=1000
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
+RUN apt-get update
+RUN apt-get -y install bash git zip
 RUN docker-php-ext-install pdo pdo_mysql
-
-COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
+COPY --from=vendor /usr/bin/composer /usr/bin/composer
 
 RUN addgroup -gid ${NGINX_GROUP_ID:-1000} nginx \
     && adduser -uid ${NGINX_USER_ID:-1000} -gid ${NGINX_GROUP_ID:-1000} --debug nginx
 
 WORKDIR /app
 
-COPY --chown=nginx:nginx ./ ./
-
-RUN composer install --prefer-dist --no-autoloader --no-scripts \
-    && composer clear-cache
+COPY --chown=nginx:nginx . ./
+COPY --chown=nginx:nginx --from=vendor /tmp/vendor/ ./vendor
 
 EXPOSE 9000
-
 ENTRYPOINT ["php-fpm", "-F"]

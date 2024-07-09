@@ -4,8 +4,11 @@ down:
 build:
 	docker compose rm -sf
 	docker compose down --remove-orphans
-	docker compose build
+	docker compose build --no-cache
 	docker compose up -d
+
+install:
+	docker compose exec app composer install --prefer-dist
 
 up:
 	docker compose up -d
